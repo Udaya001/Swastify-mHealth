@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -10,138 +8,101 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
-  final _usernameController = TextEditingController(); // Add usernameController
-
-  // Fix: Correct the method name from _registerUser to _signup
-  Future<void> _signup() async {
-    // Ensure the passwords match
-    if (_passwordController.text != _confirmPasswordController.text) {
-      print('Passwords do not match');
-      return;
-    }
-
-    const url = 'http://10.0.2.2:8000/auth/signup/'; // API endpoint
-    final response = await http.post(
-      Uri.parse(url),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({
-        'username': _usernameController.text, // Use _usernameController here
-        'email': _emailController.text,
-        'password': _passwordController.text,
-        'confirmPassword': _confirmPasswordController.text,
-      }),
-    );
-
-    if (response.statusCode == 201) {
-      // Show a success message (pop-up)
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Sign Up Successful'),
-          content: const Text('Your account has been created successfully!'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the pop-up
-                Navigator.pushNamed(
-                    context, '/login'); // Navigate to the login screen
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    } else {
-      // Show error message
-      print('Failed to register user');
-    }
-  }
-
-  @override
-  void dispose() {
-    // Dispose the controllers when not needed
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    _usernameController.dispose();
-    super.dispose();
-  }
+  bool _isPasswordVisible = false; // State for password visibility
+  bool _isConfirmPasswordVisible =
+      false; // State for confirm password visibility
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: const Text('Sign Up'), backgroundColor: Colors.teal),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Create an Account',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-
-            // Username input field
-            TextField(
-              controller: _usernameController, // Use usernameController here
-              decoration: const InputDecoration(
-                labelText: 'Username',
-                prefixIcon: Icon(Icons.person),
-                border: OutlineInputBorder(),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text('New Account'),
+        backgroundColor: Colors.blue,
+      ),
+      body: SingleChildScrollView(
+        // Makes the screen scrollable
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-
-            // Email input field
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Icon(Icons.email),
-                border: OutlineInputBorder(),
+              SizedBox(height: 20),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-
-            // Password input field
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-                prefixIcon: Icon(Icons.lock),
-                border: OutlineInputBorder(),
+              SizedBox(height: 20),
+              TextField(
+                obscureText: !_isPasswordVisible, // Toggle visibility
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isPasswordVisible = !_isPasswordVisible;
+                      });
+                    },
+                  ),
+                ),
               ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-
-            // Confirm Password input field
-            TextField(
-              controller: _confirmPasswordController,
-              decoration: const InputDecoration(
-                labelText: 'Confirm Password',
-                prefixIcon: Icon(Icons.lock),
-                border: OutlineInputBorder(),
+              SizedBox(height: 20),
+              TextField(
+                obscureText: !_isConfirmPasswordVisible, // Toggle visibility
+                decoration: InputDecoration(
+                  labelText: 'Confirm Password',
+                  border: OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isConfirmPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                      });
+                    },
+                  ),
+                ),
               ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-
-            // Sign Up Button
-            ElevatedButton(
-              onPressed: _signup,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal,
-              ), // Call the _signup method
-              child: const Text('Sign Up'),
-            ),
-          ],
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // Add your sign-up logic here
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  textStyle: TextStyle(fontSize: 18),
+                ),
+                child: Text('Sign Up'),
+              ),
+              SizedBox(height: 10),
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Already have an account? Log In"),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

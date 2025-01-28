@@ -1,4 +1,4 @@
-#Wed Jan 15 08:48:46 NPT 2025
+#Tue Jan 28 22:11:58 NPT 2025
 base.0=D\:\\swastify\\s_app\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=D\:\\swastify\\s_app\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=D\:\\swastify\\s_app\\frontend\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex

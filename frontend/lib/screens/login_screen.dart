@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'reset_password_screen.dart';
-import 'signup_screen.dart';
+import 'package:http/http.dart' as http;
+import 'home_screen.dart'; // Ensure you import your HomeScreen
+import 'signup_screen.dart'; // Import the SignUpScreen
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,7 +13,41 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _isPasswordVisible = false; // State for password visibility
+  bool _isPasswordVisible = false;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  // Function to handle login API request
+  Future<void> loginUser(String username, String password) async {
+    try {
+      var response = await http.post(
+        Uri.parse('http://10.0.2.2:8000/login/'),
+        body: jsonEncode({
+          'username': username,
+          'password': password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // If login is successful, navigate to the HomeScreen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      } else {
+        // Handle login failure
+        print('Login failed: ${response.statusCode}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed, please try again')),
+        );
+      }
+    } catch (e) {
+      print('Error during login: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 20),
             TextField(
+              controller: _usernameController,
               decoration: InputDecoration(
                 labelText: 'Username',
                 border: OutlineInputBorder(),
@@ -40,7 +78,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 20),
             TextField(
-              obscureText: !_isPasswordVisible, // Toggle visibility
+              controller: _passwordController,
+              obscureText: !_isPasswordVisible,
               decoration: InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
@@ -63,11 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ResetPasswordScreen()),
-                  );
+                  // Navigate to reset password screen
+                  // Replace with actual navigation logic if you have a ResetPasswordScreen
                 },
                 child: Text('Forgot Password?'),
               ),
@@ -75,7 +111,10 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Add your login logic here
+                // Call loginUser function with entered credentials
+                String username = _usernameController.text;
+                String password = _passwordController.text;
+                loginUser(username, password);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
@@ -87,6 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Center(
               child: TextButton(
                 onPressed: () {
+                  // Navigate to SignUpScreen
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => SignUpScreen()),

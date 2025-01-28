@@ -1,0 +1,1 @@
+ D:\\swastify\\s_app\\frontend\\.dart_tool\\flutter_build\\9cee2bcdb050f12cc24cfa1bda1eb357\\native_assets.yaml: 

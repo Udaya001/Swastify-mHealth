@@ -1,0 +1,1 @@
+ D:\\swastify\\Swastify-mHealth\\frontend\\.dart_tool\\flutter_build\\6011007f927fd5ad0190aff2985b9dac\\native_assets.yaml: 

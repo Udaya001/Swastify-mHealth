@@ -23,9 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-vru@-dj&=6w=%9ql*xpw2do%e0z1sfk-n1$yp6w2q_95s_!f2n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = [
+    "192.168.0.110", #  PC's IP address
+    "10.0.2.2",
+    "127.0.0.1"]
 
 
 # Application definition
@@ -37,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'authentication',
+    'django.contrib.sessions',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +127,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",    # For testing on the browser or local machine
+    "http://192.168.0.110:8000", #  PC's IP address
+    "http://10.0.2.2:8000",    # For Android Emulator
+]
+
+APPEND_SLASH = False

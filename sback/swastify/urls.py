@@ -14,9 +14,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# from django.contrib import admin
+# from django.urls import path, include
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#      path('auth/', include('authentication.urls')),
+
+#      path('login/', views.login_view, name='login'),
+# ]
+
 from django.contrib import admin
 from django.urls import path
+from swastify import views  # Replace 'myapp' with the actual name of your app
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),  # Admin site URL
+    path('auth/register/', views.register_view, name='register'),  # Registration view
+    path('login/', views.login_view, name='login'),  # Login view
 ]
+

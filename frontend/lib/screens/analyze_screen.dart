@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'results_screen.dart'; // Import your results screen
+import 'results_screen.dart';
 
 class AnalyzeScreen extends StatefulWidget {
   @override
@@ -164,8 +164,7 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> {
               _diet = value!;
             });
           }),
-          _buildRadioButtons(
-              'Physical Activity', ['None', 'Low', 'Moderate', 'High'],
+          _buildRadioButtons('Physical Activity', ['Low', 'Moderate', 'High'],
               (value) {
             setState(() {
               _physicalActivity = value!;

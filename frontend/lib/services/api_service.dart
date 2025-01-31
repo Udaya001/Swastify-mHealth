@@ -3,7 +3,7 @@ import 'dart:convert';
 import '../models/signup_model.dart';
 
 class ApiService {
-  static const String apiUrl = 'http://your-backend-url/auth/register/';
+  static const String apiUrl = 'http://10.0.2.2:8000/auth/register/';
 
   static Future<void> signUp(SignUpModel model) async {
     try {

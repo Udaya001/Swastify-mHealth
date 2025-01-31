@@ -15,7 +15,7 @@ def register_view(request):
             if not username or not email or not password:
                 return JsonResponse({'message': 'All fields (username, email, password) are required.'}, status=400)
 
-            # Implement user creation logic (for example, using Django's User model)
+            #  user creation logic 
             from django.contrib.auth.models import User
             user = User.objects.create_user(username=username, email=email, password=password)
 

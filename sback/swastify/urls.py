@@ -26,7 +26,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from swastify import views  # Replace 'myapp' with the actual name of your app
+from swastify import views  
 
 urlpatterns = [
     path('admin/', admin.site.urls),  # Admin site URL

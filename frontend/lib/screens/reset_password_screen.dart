@@ -58,7 +58,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Add reset password logic here
+                    // reset password logic
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,

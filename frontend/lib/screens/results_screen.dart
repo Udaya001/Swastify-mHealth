@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home_screen.dart'; // Import your Home screen
-import 'analyze_screen.dart'; // Import your Analyze screen
+import 'home_screen.dart';
+import 'analyze_screen.dart';
 
 class ResultsScreen extends StatefulWidget {
   @override

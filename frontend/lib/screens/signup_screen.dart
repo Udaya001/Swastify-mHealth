@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http; // Import HTTP package
+import 'package:http/http.dart' as http;
 import 'dart:convert'; // For JSON encoding and decoding
 
 class SignUpScreen extends StatefulWidget {

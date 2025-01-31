@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'analyze_screen.dart'; // Import Analyze Screen
-import 'results_screen.dart'; // Import Results Screen (Updated from Statistics)
-import 'profile_screen.dart'; // Import Profile Screen
+import 'analyze_screen.dart';
+import 'results_screen.dart';
+import 'profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -27,35 +27,36 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: AssetImage('assets/profile.jpg'),
-            ),
-            SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hi, Welcome Back',
-                  style: TextStyle(color: Colors.black, fontSize: 14),
-                ),
-                Text(
-                  'Pukar Bajgai',
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+      appBar: _selectedIndex == 0
+          ? AppBar(
+              backgroundColor: Colors.white,
+              elevation: 0,
+              title: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/profile.jpg'),
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hi, Welcome Back',
+                        style: TextStyle(color: Colors.black, fontSize: 14),
+                      ),
+                      Text(
+                        'Pukar Bajgai',
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          : null,
       body: Center(
-        child: _widgetOptions
-            .elementAt(_selectedIndex), // Display the selected screen
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
